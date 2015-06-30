@@ -21,10 +21,12 @@
 !bin/console
 !bin/symfony_requirements
 /vendor/
+/bower_components/
 
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
+/web/assets/
 
 # PHPUnit
 /app/phpunit.xml
