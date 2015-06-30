@@ -1,0 +1,3 @@
+site_interface_default:
+    prefix: /
+    resource: "@SiteInterfaceBundle/Resources/config/routing/default.yml"

@@ -1,0 +1,4 @@
+site_interface_default_index:
+    pattern:  /
+    defaults: { _controller: SiteInterfaceBundle:Default:index }
+    methods: [GET]

@@ -1,0 +1,14 @@
+superadmin_interface_object_default:
+    pattern:  /
+    defaults: { _controller: SuperAdminInterfaceBundle:Object:default }
+    methods: [GET]
+    
+superadmin_interface_object_edit:
+    pattern:  /edit
+    defaults: { _controller: SuperAdminInterfaceBundle:Object:edit }
+    methods: [GET]
+    
+superadmin_interface_object_list:
+    pattern:  /list
+    defaults: { _controller: SuperAdminInterfaceBundle:Object:list }
+    methods: [GET]

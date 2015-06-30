@@ -1,3 +1,11 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+site_interface:
+    prefix: /
+    resource: "@SiteAdminInterfaceBundle/Resources/config/routing.yml"
+    
+admin_interface:
+    prefix: /admin
+    resource: "@AdminInterfaceBundle/Resources/config/routing.yml"
+
+superadmin_interface:
+    prefix: /superadmin
+    resource: "@SuperAdminInterfaceBundle/Resources/config/routing.yml"

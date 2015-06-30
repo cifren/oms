@@ -1,0 +1,4 @@
+admin_interface_default_index:
+    pattern:  /
+    defaults: { _controller: AdminInterfaceBundle:Default:index }
+    methods: [GET]

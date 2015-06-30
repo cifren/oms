@@ -1,0 +1,3 @@
+admin_interface_default:
+    prefix: /
+    resource: "@AdminInterfaceBundle/Resources/config/routing/default.yml"

@@ -1,0 +1,4 @@
+superadmin_interface_default_index:
+    pattern:  /
+    defaults: { _controller: SuperAdminInterfaceBundle:Default:index }
+    methods: [GET]
