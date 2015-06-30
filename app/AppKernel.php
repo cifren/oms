@@ -16,7 +16,10 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            
+            //Created
             new SuperAdmin\InterfaceBundle\SuperAdminInterfaceBundle(),
+            new SuperAdmin\CoreBundle\SuperAdminCoreBundle(),
             new Admin\InterfaceBundle\AdminInterfaceBundle(),
             new Site\InterfaceBundle\SiteInterfaceBundle(),
         );
