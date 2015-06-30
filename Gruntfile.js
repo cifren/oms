@@ -4,18 +4,18 @@ module.exports = function (grunt) {
         bowercopy: {
             options: {
                 srcPrefix: 'bower_components',
-                destPrefix: 'web/assets'
+                destPrefix: 'web'
             },
             scripts: {
                 files: {
-                    'js/jquery.js': 'jquery/dist/jquery.js',
-                    'js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js'
+                    'assets/js/jquery.js': 'jquery/dist/jquery.js',
+                    'assets/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js'
                 }
             },
             stylesheets: {
                 files: {
-                    'css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
-                    'css/font-awesome.css': 'font-awesome/css/font-awesome.css'
+                    'assets/css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
+                    'assets/css/font-awesome.css': 'font-awesome/css/font-awesome.css'
                 }
             },
             fonts: {

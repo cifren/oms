@@ -1,6 +1,6 @@
 site_interface:
     prefix: /
-    resource: "@SiteAdminInterfaceBundle/Resources/config/routing.yml"
+    resource: "@SiteInterfaceBundle/Resources/config/routing.yml"
     
 admin_interface:
     prefix: /admin

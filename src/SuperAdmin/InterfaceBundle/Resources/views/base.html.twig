@@ -1,1 +1,10 @@
 {% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    {% stylesheets
+        'assets/css/bootstrap.min.css'
+        'assets/css/font-awesome.min.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
