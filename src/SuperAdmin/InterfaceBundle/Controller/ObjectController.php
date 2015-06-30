@@ -12,9 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ObjectController extends Controller
 {
 
-    public function defaultAction()
+    public function crudAction()
     {
-        return $this->render('SuperAdminInterfaceBundle:Object:default.html.twig');
+        
+        return $this->render('SuperAdminInterfaceBundle:Object:crud.html.twig');
     }
 
     public function editAction()

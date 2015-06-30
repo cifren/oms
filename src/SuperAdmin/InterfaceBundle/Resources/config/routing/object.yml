@@ -1,6 +1,6 @@
-superadmin_interface_object_default:
-    pattern:  /
-    defaults: { _controller: SuperAdminInterfaceBundle:Object:default }
+superadmin_interface_object_crud:
+    pattern:  /crud
+    defaults: { _controller: SuperAdminInterfaceBundle:Object:crud }
     methods: [GET]
     
 superadmin_interface_object_edit:
