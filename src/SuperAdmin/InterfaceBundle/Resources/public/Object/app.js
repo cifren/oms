@@ -1,6 +1,7 @@
 var objectApp = angular.module('objectApp', [
     'ngResource',
     'ngRoute',
+    'ngSanitize',
     'controllers'
 ]);
 

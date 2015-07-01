@@ -12,7 +12,8 @@ module.exports = function (grunt) {
                     'assets/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
                     'assets/js/angular.min.js': 'angular/angular.min.js',
                     'assets/js/angular-route.min.js': 'angular-route/angular-route.min.js',
-                    'assets/js/angular-resource.min.js': 'angular-resource/angular-resource.min.js'
+                    'assets/js/angular-resource.min.js': 'angular-resource/angular-resource.min.js',
+                    'assets/js/angular-sanitize.min.js': 'angular-sanitize/angular-sanitize.min.js'
                 }
             },
             stylesheets: {
