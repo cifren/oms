@@ -1,0 +1,3 @@
+superadmin_api_object:
+    prefix: /object
+    resource: "@SuperAdminApiBundle/Resources/config/routing/object.yml"

@@ -2,6 +2,10 @@
 
 namespace ApiBundle\Model;
 
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\ConstraintViolation;
+
 /**
  * Description of CustomJsonResponse
  *
@@ -51,12 +55,30 @@ class ValidateJsonResponse
         return $this;
     }
 
+    /**
+     * 
+     * @return ConstraintViolationList
+     */
     function getValidatorErrors()
     {
         return $this->validatorErrors;
     }
 
-    function setValidatorErrors($validatorErrors)
+    function getAryValidatorErrors()
+    {
+        $validators = [];
+
+        foreach ($this->validatorErrors as $errors) {
+            $e['message'] = $errors->getMessage();
+            $e['propertyPath'] = $errors->getPropertyPath();
+            $e['class'] = get_class($errors->getRoot());
+            $validators[] = $e;
+        }
+
+        return $validators;
+    }
+
+    function setValidatorErrors(ConstraintViolationList $validatorErrors)
     {
         $this->validatorErrors = $validatorErrors;
         return $this;
@@ -68,8 +90,13 @@ class ValidateJsonResponse
             'status' => $this->getStatus(),
             'msg' => $this->getMsg(),
             'data' => $this->getData(),
-            'validatorErrorList' => $this->getValidatorErrors()
+            'validatorErrorList' => $this->getAryValidatorErrors()
         );
+    }
+
+    public function getJsonResponse()
+    {
+        return new JsonResponse($this->getArray());
     }
 
 }

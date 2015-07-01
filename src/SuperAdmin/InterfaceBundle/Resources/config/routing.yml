@@ -1,7 +1,7 @@
-superadmin_interface_default:
-    prefix: /
-    resource: "@SuperAdminInterfaceBundle/Resources/config/routing/default.yml"
-    
 superadmin_interface_object:
     prefix: /object
     resource: "@SuperAdminInterfaceBundle/Resources/config/routing/object.yml"
+    
+superadmin_interface_default:
+    prefix: /
+    resource: "@SuperAdminInterfaceBundle/Resources/config/routing/default.yml"
