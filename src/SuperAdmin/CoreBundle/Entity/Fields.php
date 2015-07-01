@@ -35,4 +35,19 @@ class Field
      */
     protected $description;
 
+    /**
+     * @ORM\Column(name="required", type="boolean")
+     */
+    protected $required;
+
+    /**
+     * @ORM\Column(name="default_value", type="text")
+     */
+    protected $defaultValue;
+
+    /**
+     * @ORM\Column(name="placeholder", type="text")
+     */
+    protected $placeholder;
+
 }
