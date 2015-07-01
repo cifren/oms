@@ -14,7 +14,6 @@ class ObjectController extends Controller
 
     public function crudAction()
     {
-        
         return $this->render('SuperAdminInterfaceBundle:Object:crud.html.twig');
     }
 

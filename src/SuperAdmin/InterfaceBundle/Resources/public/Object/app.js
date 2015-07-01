@@ -33,5 +33,5 @@ objectApp
                             redirectTo: '/list'
                         });
             }
-        ]);
-;
+        ])
+        ;
