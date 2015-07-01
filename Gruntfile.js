@@ -9,7 +9,10 @@ module.exports = function (grunt) {
             scripts: {
                 files: {
                     'assets/js/jquery.js': 'jquery/dist/jquery.js',
-                    'assets/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js'
+                    'assets/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
+                    'assets/js/angular.min.js': 'angular/angular.min.js',
+                    'assets/js/angular-route.min.js': 'angular-route/angular-route.min.js',
+                    'assets/js/angular-resource.min.js': 'angular-resource/angular-resource.min.js'
                 }
             },
             stylesheets: {
