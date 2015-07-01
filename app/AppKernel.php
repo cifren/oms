@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new ApiBundle\ApiBundle(),
             new SuperAdmin\InterfaceBundle\SuperAdminInterfaceBundle(),
             new SuperAdmin\CoreBundle\SuperAdminCoreBundle(),
+            new SuperAdmin\ApiBundle\SuperAdminApiBundle(),
             new Admin\InterfaceBundle\AdminInterfaceBundle(),
             new Site\InterfaceBundle\SiteInterfaceBundle(),
         );

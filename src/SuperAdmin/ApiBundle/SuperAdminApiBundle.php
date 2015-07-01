@@ -1,10 +1,10 @@
 <?php
 
-namespace SuperAdmin\CoreBundle;
+namespace SuperAdmin\ApiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SuperAdminCoreBundle extends Bundle
+class SuperAdminApiBundle extends Bundle
 {
     
 }
