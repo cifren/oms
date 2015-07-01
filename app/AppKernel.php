@@ -16,8 +16,14 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+                        
+            //Access all routes from javascript
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            //user management
+            //new FOS\UserBundle\FOSUserBundle(),
             
             //Created
+            new ApiBundle\ApiBundle(),
             new SuperAdmin\InterfaceBundle\SuperAdminInterfaceBundle(),
             new SuperAdmin\CoreBundle\SuperAdminCoreBundle(),
             new Admin\InterfaceBundle\AdminInterfaceBundle(),

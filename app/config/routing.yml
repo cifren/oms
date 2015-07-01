@@ -1,3 +1,11 @@
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+api:
+    prefix: /api
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    
 site_interface:
     prefix: /
     resource: "@SiteInterfaceBundle/Resources/config/routing.yml"
