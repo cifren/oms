@@ -1,0 +1,3 @@
+api_common_templateaccess:
+    pattern: /templateAccess/{templateName}
+    defaults: { _controller: ApiBundle:Common:templateAccess }

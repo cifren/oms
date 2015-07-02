@@ -1,0 +1,6 @@
+api_remotedataaccess_getrepositoryjson:
+    pattern: /getRepositoryJson
+    defaults: { _controller: ApiBundle:RemoteDataAccess:getRepositoryJson }
+    #accessible by js
+    options:
+        expose: true

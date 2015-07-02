@@ -1,10 +1,9 @@
 <?php
 
-namespace ApiBundle\Model;
+namespace ApiBundle\Model\Response;
 
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Validator\ConstraintViolation;
 
 /**
  * Description of CustomJsonResponse
@@ -57,7 +56,7 @@ class ValidateJsonResponse
 
     /**
      * 
-     * @return ConstraintViolationList
+     * @return array of ConstraintViolationList
      */
     function getValidatorErrors()
     {
@@ -67,18 +66,25 @@ class ValidateJsonResponse
     function getAryValidatorErrors()
     {
         $validators = [];
-
-        foreach ($this->validatorErrors as $errors) {
-            $e['message'] = $errors->getMessage();
-            $e['propertyPath'] = $errors->getPropertyPath();
-            $e['class'] = get_class($errors->getRoot());
-            $validators[] = $e;
+        if (count($this->validatorErrors) > 0) {
+            foreach ($this->validatorErrors as $key => $entityErrorList) {
+                $entityValidator = [];
+                foreach ($entityErrorList as $errors) {
+                    $e['message'] = $errors->getMessage();
+                    $e['propertyPath'] = $errors->getPropertyPath();
+                    $e['class'] = get_class($errors->getRoot());
+                    $entityValidator[] = $e;
+                }
+                if (count($entityValidator) > 0) {
+                    $validators[$key] = $entityValidator;
+                }
+            }
         }
 
         return $validators;
     }
 
-    function setValidatorErrors(ConstraintViolationList $validatorErrors)
+    function setValidatorErrors(array $validatorErrors)
     {
         $this->validatorErrors = $validatorErrors;
         return $this;

@@ -1,3 +1,7 @@
-api_templateaccess:
-    pattern: /templateAccess/{templateName}
-    defaults: { _controller: ApiBundle:Common:templateAccess }
+api_common:
+    prefix: /common
+    resource: "@ApiBundle/Resources/config/routing/common.yml"
+    
+api_remotedataaccess:
+    prefix: /remotedataaccess
+    resource: "@ApiBundle/Resources/config/routing/remoteDataAccess.yml"
