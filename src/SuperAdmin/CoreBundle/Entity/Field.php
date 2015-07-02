@@ -3,6 +3,7 @@
 namespace SuperAdmin\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use SuperAdmin\CoreBundle\Entity\Object;
 
 /**
  * SuperAdmin\CoreBundle\Entity\Field
@@ -31,6 +32,11 @@ class Field
     protected $label;
 
     /**
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    protected $name;
+
+    /**
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
@@ -50,6 +56,18 @@ class Field
      */
     protected $placeholder;
 
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="SuperAdmin\CoreBundle\Entity\Object", inversedBy="fields", cascade={"all"})
+     * @ORM\JoinColumn(name="object_id", referencedColumnName="id")
+     */
+    protected $object;
+
+    public function __toString()
+    {
+        return $this->getLabel() ? $this->getLabel() : 'no label';
+    }
+
     public function getId()
     {
         return $this->id;
@@ -63,6 +81,17 @@ class Field
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     public function getDescription()
@@ -118,6 +147,17 @@ class Field
     public function setPlaceholder($placeholder)
     {
         $this->placeholder = $placeholder;
+        return $this;
+    }
+
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    public function setObject(Object $object = null)
+    {
+        $this->object = $object;
         return $this;
     }
 

@@ -2,3 +2,8 @@ superadmin_api_object_save:
     pattern:  /save
     defaults: { _controller: SuperAdminApiBundle:Object:save }
     methods: [POST]
+    
+superadmin_api_object_delete:
+    pattern:  /delete
+    defaults: { _controller: SuperAdminApiBundle:Object:delete }
+    methods: [POST]

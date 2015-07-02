@@ -3,9 +3,13 @@ SuperAdmin\CoreBundle\Entity\Field:
         type:
             - NotBlank: ~
             - Length: 
-                min:    5
                 max:    55
         label:
+            - NotBlank: ~
+            - Length: 
+                min:    5
+                max:    255
+        name:
             - NotBlank: ~
             - Length: 
                 min:    5

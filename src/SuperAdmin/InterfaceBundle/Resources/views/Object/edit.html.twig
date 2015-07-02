@@ -1,71 +1,71 @@
-{% extends "SuperAdminInterfaceBundle::base.html.twig" %}
-
 {% block body %}
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Object</h2>
-                <a href="#list" class="btn btn-default">List</a>
-                <a ng-click="saveObject()" class="btn btn-primary">Save</a>
-            </div>
-        </div>
-        
-        {% verbatim %}
-        <div ng-show="alert.status" class="alert alert-{{ alert.status }}" ng-bind="alert.message"></div>
-        {% endverbatim %}
-        <div class="row form-horizontal">
-            <div class="col-md-12">
-                <label class="col-sm-2 control-label">Name:</label>
-                <div class="col-sm-10">
-                    <input 
-                        name="name" 
-                        class="form-control" 
-                        type="text" 
-                        placeholder="The object name here" 
-                        ng-model="object.name"
-                        required
-                        />
+        <form class="css-form">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Object</h2>
+                    <a href="#list" class="btn btn-default">List</a>
+                    <button ng-click="saveObject()" class="btn btn-primary" type="submit">Save</button>
                 </div>
             </div>
-            <div class="col-md-12">
-                <label class="col-sm-2 control-label">Description:</label>
-                <div class="col-sm-10">
-                    <textarea 
-                        name="name" 
-                        class="form-control" 
-                        placeholder="The object description here" 
-                        ng-model="object.description"/>
+
+            {% verbatim %}
+                <div ng-show="alert.status" class="alert alert-{{ alert.status}}" ng-bind-html="alert.message"></div>
+            {% endverbatim %}
+            <div class="row form-horizontal">
+                <div class="col-md-12">
+                    <label class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-10">
+                        <input 
+                            name="name" 
+                            class="form-control" 
+                            type="text" 
+                            placeholder="The object name here" 
+                            ng-model="object.name"
+                            required
+                            />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-sm-2 control-label">Description:</label>
+                    <div class="col-sm-10">
+                        <textarea 
+                            name="name" 
+                            class="form-control" 
+                            placeholder="The object description here" 
+                            ng-model="object.description"/>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Fields</h3>
-                <div>
-                    <select class="form-control" ng-model="addField.new" ng-options="type.name as type.value for type in addField.types" ></select>
-                    <button type="submit" class="btn btn-default" ng-click="addNewField()"><i class="fa fa-plus"></i> Add Field</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Fields</h3>
+                    <div>
+                        <select class="form-control" ng-model="addField.new" ng-options="type.value as type.label for type in addField.types" ></select>
+                        <a class="btn btn-default" ng-click="addNewField()"><i class="fa fa-plus"></i> Add Field</a>
+                    </div>
+                    <hr>
                 </div>
-                <hr>
             </div>
-        </div>
-        <p ng-show="form.form_fields.length == 0">No fields added yet.</p>
-        <div>
-            <div class="panel panel-primary" ng-repeat="field in object.fields">
-                {% verbatim %}
-                    <div class="panel-heading">{{field.name}} - {{field.type | capitalize}} Type</div>
-                {% endverbatim %}
-                <div class="panel-body">
-                    <div ng-switch="field.type" class="form-horizontal">
-                        <div ng-switch-when="text">
-                            <fieldtype-text></fieldtype-text>
-                        </div>
-                        <div ng-switch-when="textarea">
-                            <fieldtype-textarea></fieldtype-textarea>
+            <p ng-show="form.form_fields.length == 0">No fields added yet.</p>
+            <div>
+                <div class="panel panel-primary" ng-repeat="field in object.fields">
+                    {% verbatim %}
+                        <div class="panel-heading">{{field.id}} - {{field.name}} - {{field.type | capitalize}} Type<a class="pull-right btn btn-danger btn-xs" ng-click="deleteField(field.id)"><i class="fa fa-trash-o">&nbsp Delete</i></a></div>
+                    {% endverbatim %}
+                    <div class="panel-body">
+                        <div ng-switch="field.type" class="form-horizontal">
+                            <div ng-switch-when="text">
+                                <fieldtype-text></fieldtype-text>
+                            </div>
+                            <div ng-switch-when="textarea">
+                                <fieldtype-textarea></fieldtype-textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
     </div>
 {% endblock %}

@@ -3,6 +3,8 @@
 namespace SuperAdmin\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use SuperAdmin\CoreBundle\Entity\Field;
 
 /**
  * SuperAdmin\CoreBundle\Entity\Object
@@ -30,6 +32,17 @@ class Object
      */
     protected $description;
 
+    /**
+     * 
+     * @ORM\OneToMany(targetEntity="SuperAdmin\CoreBundle\Entity\Field", mappedBy="object", cascade={"all"}, orphanRemoval=true)
+     */
+    protected $fields;
+
+    public function __construct()
+    {
+        $this->fields = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -54,6 +67,40 @@ class Object
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    public function setFields(array $fields)
+    {
+        //remove all entity attached
+        foreach($this->getFields() as $field){
+            $field->setObject(null);
+        }
+        $this->getFields()->clear();
+        //add the new entity and attach them
+        foreach ($fields as $field) {
+            $this->addField($field);
+        }
+
+        return $this;
+    }
+
+    public function addField(Field $field)
+    {
+        $field->setObject($this);
+        $this->fields[] = $field;
+
+        return $this;
+    }
+
+    public function removeField(Field $field)
+    {
+        $field->setObject(null);
         return $this;
     }
 

@@ -2,10 +2,11 @@
 
 namespace SuperAdmin\ApiBundle\Validation\Handler;
 
-use ApiBundle\Model\ValidateJsonResponse;
+use ApiBundle\Model\Response\ValidateJsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use SuperAdmin\CoreBundle\Entity\Object;
 use SuperAdmin\CoreBundle\Entity\Field;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of ObjectHandler
@@ -19,48 +20,78 @@ class ObjectHandler
     protected $parameterName = "formObject";
     protected $request;
     protected $jsonResponse;
+    protected $entityManager;
 
-    public function __construct(Request $request, $validator)
+    public function __construct(Request $request, $validator, $em)
     {
+        $this->entityManager = $em;
         $this->request = $request;
         $this->validator = $validator;
     }
 
     public function process()
     {
-        $aryEntity = $this->transformRequestIntoEntity($this->getRequest($this->parameterName));
-        $validationErrorList = $this->validateEntities($aryEntity);
-        $this->setJsonResponse($validationErrorList);
+        $entity = $this->transformRequestIntoEntity($this->getRequest($this->parameterName));
+        $validationErrorList = $this->validateEntities($entity);
+        $this->save($validationErrorList, $entity);
+        $this->setJsonResponse($validationErrorList, $entity);
     }
 
     protected function transformRequestIntoEntity(array $aryRequest)
     {
-        $object = new Object();
+        $objectId = $this->getFromArray($aryRequest, 'id');
+
+        if ($objectId) {
+            $object = $this->getEntityManager()->getRepository('SuperAdmin\CoreBundle\Entity\Object')->find($objectId);
+        } else {
+            $object = new Object();
+        }
         $object->setName($this->getFromArray($aryRequest, 'name'));
         $object->setDescription($this->getFromArray($aryRequest, 'description'));
 
         $aryFields = $this->getFromArray($aryRequest, 'fields');
         $fields = [];
         foreach ($aryFields as $value) {
-            $field = new Field();
-            $field->setDefaultValue($this->getFromArray($aryRequest, 'defaultValue'));
-            $field->setDescription($this->getFromArray($aryRequest, 'description'));
-            $field->setLabel($this->getFromArray($aryRequest, 'label'));
-            $field->setPlaceholder($this->getFromArray($aryRequest, 'placeholder'));
-            $field->setRequired($this->getFromArray($aryRequest, 'required'));
-            $field->setType($this->getFromArray($aryRequest, 'type'));
+            $fieldId = $this->getFromArray($value, 'id');
+            if ($fieldId) {
+                $field = $this->getEntityManager()->getRepository('SuperAdmin\CoreBundle\Entity\Field')->find($fieldId);
+            } else {
+                $field = new Field();
+            }
+            $field->setDefaultValue($this->getFromArray($value, 'defaultValue'));
+            $field->setDescription($this->getFromArray($value, 'description'));
+            $field->setLabel($this->getFromArray($value, 'label'));
+            $field->setName($this->getFromArray($value, 'name'));
+            $field->setPlaceholder($this->getFromArray($value, 'placeholder'));
+            $required = $this->getFromArray($value, 'required', false);
+            $field->setRequired($required == "1" ? true : false);
+            $field->setType($this->getFromArray($value, 'type'));
 
             $fields[] = $field;
         }
+        $object->setFields($fields);
 
         return $object;
     }
 
     protected function validateEntities(Object $object)
     {
-        $errorList = $this->validator->validate($object);
-        
-        return $errorList;
+        $errorListTemp = $this->validator->validate($object);
+        if (count($errorListTemp) > 0) {
+            $errorList['object'] = $this->validator->validate($object);
+        }
+
+        $fields = $object->getFields();
+        $i = 0;
+        foreach ($fields as $key => $field) {
+            $errorListTemp = $this->validator->validate($field);
+            if (count($errorListTemp) > 0) {
+                $errorList['field' . $i] = $this->validator->validate($field);
+            }
+            $i++;
+        }
+
+        return isset($errorList) ? $errorList : [];
     }
 
     protected function getFromArray($request, $field, $defaultValue = null)
@@ -105,9 +136,15 @@ class ObjectHandler
         return $this;
     }
 
-    protected function setJsonResponse($validationErrorList)
+    protected function setJsonResponse(array $validationErrorList, Object $object)
     {
         $this->jsonResponse = new ValidateJsonResponse();
+        $fieldIds = [];
+        foreach ($object->getFields() as $field) {
+            $fieldIds[]['id'] = $field->getId();
+        }
+        $this->jsonResponse->setData(array('id' => $object->getId(), 'fields' => $fieldIds));
+        
         if (count($validationErrorList) > 0) {
             $this->jsonResponse->setStatus(ValidateJsonResponse::ERROR);
             $this->jsonResponse->setMsg('Not Valid');
@@ -116,7 +153,35 @@ class ObjectHandler
             $this->jsonResponse->setStatus(ValidateJsonResponse::VALID);
             $this->jsonResponse->setMsg('Valid');
         }
-        
+
+        return $this;
+    }
+
+    protected function save(array $validationErrorList, Object $object)
+    {
+        if (count($validationErrorList) === 0) {
+            $this->getEntityManager()->persist($object);
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * 
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
+    }
+
+    /**
+     * 
+     * @param EntityManager $entityManager
+     * @return \SuperAdmin\ApiBundle\Validation\Handler\ObjectHandler
+     */
+    public function setEntityManager(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
         return $this;
     }
 
