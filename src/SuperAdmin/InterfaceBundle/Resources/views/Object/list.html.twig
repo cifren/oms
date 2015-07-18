@@ -6,6 +6,9 @@
                 <a class="btn btn-primary" href="#create">Create</a>
             </div>
         </div>
+        {% verbatim %}
+            <div ng-show="alert.status" class="alert alert-{{ alert.status}}" ng-bind-html="alert.message"></div>
+        {% endverbatim %}
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-bordered table-striped">
@@ -19,6 +22,7 @@
                         <td ng-bind="object.name"></td>
                         <td>
                             {% verbatim %}
+                                <a class="btn btn-primary pull-right" ng-click="generateObject()">&nbspGenerate code</a>
                                 <a class="btn btn-danger pull-right" ng-click="deleteObject(object.id)"><i class="fa fa-trash-o">&nbspDelete</i></a>
                                 <a href="#edit/{{object.id}}" class="btn btn-primary pull-right"><i class="fa fa-edit">&nbspEdit</i></a>
                             {% endverbatim %}

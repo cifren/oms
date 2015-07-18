@@ -43,6 +43,9 @@ class ObjectHandler
 
         if ($objectId) {
             $object = $this->getEntityManager()->getRepository('SuperAdmin\CoreBundle\Entity\Object')->find($objectId);
+            if(!$object){
+                throw new \Exception(sprintf('The entity "Object" with ID "%s" doesn\'t exist', $objectId));
+            }
         } else {
             $object = new Object();
         }
@@ -96,7 +99,7 @@ class ObjectHandler
 
     protected function getFromArray($request, $field, $defaultValue = null)
     {
-        if (isset($request[$field])) {
+        if (isset($request[$field]) && !empty($request[$field])) {
             return $request[$field];
         } else {
             return $defaultValue;
@@ -159,6 +162,9 @@ class ObjectHandler
 
     protected function save(array $validationErrorList, Object $object)
     {
+        if(count($object->getFields())<=0){
+            throw new \Exception('Entity Object must have at least one field');
+        }
         if (count($validationErrorList) === 0) {
             $this->getEntityManager()->persist($object);
             $this->getEntityManager()->flush();

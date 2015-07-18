@@ -1,7 +1,12 @@
 {% extends "SuperAdminInterfaceBundle::base.html.twig" %}
 
 {% block body %}
-    <div>
-        Object - <a class="fa fa-plus text-success" href="{{path('superadmin_interface_object_crud')}}"> Create</a> - <a class="fa fa-edit text-warning" href=""> Edit</a> - <a class="fa fa-list" href=""> List</a>
+    {{ parent() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                Object - <a class="fa fa-list text-success" href="{{path('superadmin_interface_object_crud')}}"> List</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

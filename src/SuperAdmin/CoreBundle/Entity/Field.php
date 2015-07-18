@@ -58,7 +58,7 @@ class Field
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="SuperAdmin\CoreBundle\Entity\Object", inversedBy="fields", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="SuperAdmin\CoreBundle\Entity\Object", inversedBy="fields")
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id")
      */
     protected $object;

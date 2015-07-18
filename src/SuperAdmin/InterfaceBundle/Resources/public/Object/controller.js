@@ -16,7 +16,21 @@ controllers.controller('List', ['$scope', '$location', '$http', 'ctrlHelper',
             $http
                     .post(Routing.generate('superadmin_api_object_delete'), {id: id})
                     .success(function (data, status, headers, config) {
-                        ctrlHelper.deleteRow($scope.objects, id)
+                        ctrlHelper.deleteRow($scope.objects, id);
+                        $scope.alert.status = "success";
+                        $scope.alert.message = "Object deleted";
+                    })
+                    .error(function (data, status, headers, config) {
+                        $scope.alert.status = "danger";
+                        $scope.alert.message = "Error non-expected";
+                    });
+        };
+        $scope.generateObject = function (id) {
+            $http
+                    .post(Routing.generate('superadmin_api_object_generate'), {id: id})
+                    .success(function (data, status, headers, config) {
+                        $scope.alert.status = "success";
+                        $scope.alert.message = data.message;
                     })
                     .error(function (data, status, headers, config) {
                         $scope.alert.status = "danger";

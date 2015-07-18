@@ -81,7 +81,8 @@ class Object
         foreach($this->getFields() as $field){
             $field->setObject(null);
         }
-        $this->getFields()->clear();
+        //clear
+        $this->fields = new ArrayCollection();
         //add the new entity and attach them
         foreach ($fields as $field) {
             $this->addField($field);
