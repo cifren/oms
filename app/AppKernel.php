@@ -5,6 +5,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+
     public function registerBundles()
     {
         $bundles = array(
@@ -16,12 +17,12 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-                        
             //Access all routes from javascript
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            //user management
+            //User management
             //new FOS\UserBundle\FOSUserBundle(),
-            
+            //Custom repo
+            new Earls\FlamingoCommandQueueBundle\EarlsFlamingoCommandQueueBundle(),
             //Created
             new ApiBundle\ApiBundle(),
             new SuperAdmin\InterfaceBundle\SuperAdminInterfaceBundle(),
@@ -43,6 +44,7 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
+
 }
